@@ -1,6 +1,34 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
-export default class Student extends Component {
+class Student extends Component {
+  renderStudent = () => {
+    return this.props.studentList.map((ele) => {
+      return (
+        <tr key={ele.maSV}>
+          <th>{ele.maSV}</th>
+          <td>{ele.fullname}</td>
+          <td>{ele.phone}</td>
+          <td>{ele.email}</td>
+          <td>
+            <button className="btn btn-primary">Sửa</button>
+            <button
+              onClick={() =>
+                this.props.dispatch({
+                  type: "DELETE_STUDENT",
+                  payload: ele,
+                })
+              }
+              className="btn btn-danger"
+            >
+              Xóa
+            </button>
+          </td>
+        </tr>
+      );
+    });
+  };
+
   render() {
     return (
       <div>
@@ -12,19 +40,20 @@ export default class Student extends Component {
                 <th>Họ tên</th>
                 <th>Số điện thoại</th>
                 <th>Email</th>
+                <th></th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <th></th>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-            </tbody>
+            <tbody>{this.renderStudent()}</tbody>
           </table>
         </div>
       </div>
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    ...state.studentReducer,
+  };
+};
+
+export default connect(mapStateToProps)(Student);
