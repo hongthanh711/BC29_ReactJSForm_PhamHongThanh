@@ -50,13 +50,7 @@ class Register extends Component {
       title,
       minLength,
       maxLength,
-      validity: {
-        valueMissing,
-        tooLong,
-        tooShort,
-        patternMismatch,
-        customError,
-      },
+      validity: { valueMissing, tooLong, tooShort, patternMismatch },
     } = event.target;
 
     if (valueMissing) {
@@ -84,6 +78,7 @@ class Register extends Component {
     }
 
     if (
+      this.props.buttonInnerHTML === "Thêm sinh viên" &&
       this.props.studentList.find((ele) => ele.maSV === this.state.values.maSV)
     ) {
       this.setState({
@@ -142,13 +137,13 @@ class Register extends Component {
             <div className="form-group col-6">
               <label>Họ tên</label>
               <input
+                minLength={4}
+                maxLength={20}
                 value={fullname}
                 title="Họ tên"
                 pattern="^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s\W|_]+$"
                 onBlur={this.handleBlur}
                 required
-                minLength={4}
-                maxLength={20}
                 name="fullname"
                 onChange={this.handleChange}
                 type="text"
@@ -200,7 +195,6 @@ class Register extends Component {
             type="submit"
             className="btn btn-success text-white"
           >
-            {/* Thêm sinh viên */}
             {this.props.buttonInnerHTML}
           </button>
         </form>
