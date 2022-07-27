@@ -1,7 +1,14 @@
 import React, { Component } from "react";
+import { createRef } from "react";
 import { connect } from "react-redux";
+import {
+  deleteStudentAction,
+  editStudentAction,
+} from "../Store/action/student";
 
 class Student extends Component {
+  buttonRef = createRef();
+
   state = {
     keyword: "",
   };
@@ -29,20 +36,16 @@ class Student extends Component {
           <td>{ele.email}</td>
           <td>
             <button
+              ref={this.buttonRef}
               onClick={() => {
-                this.props.dispatch({ type: "EDIT_STUDENT", payload: ele });
+                this.props.dispatch(editStudentAction(ele));
               }}
               className="btn btn-primary"
             >
               Sửa
             </button>
             <button
-              onClick={() =>
-                this.props.dispatch({
-                  type: "DELETE_STUDENT",
-                  payload: ele,
-                })
-              }
+              onClick={() => this.props.dispatch(deleteStudentAction(ele))}
               className="btn btn-danger"
             >
               Xóa

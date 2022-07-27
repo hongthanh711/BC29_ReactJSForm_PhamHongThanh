@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { createRef } from "react";
 
 import { connect } from "react-redux";
+import { addStudentAction, updateStudentAction } from "../Store/action/student";
 
 class Register extends Component {
   formRef = createRef();
@@ -82,10 +83,16 @@ class Register extends Component {
       return;
     }
 
-    this.props.dispatch({
-      type: this.props.selectedStudent ? "UPDATE_STUDENT" : "ADD_STUDENT",
-      payload: this.state.values,
-    });
+    // this.props.dispatch({
+    //   type: this.props.selectedStudent ? "UPDATE_STUDENT" : "ADD_STUDENT",
+    //   payload: this.state.values,
+    // });
+
+    if (this.props.selectedStudent) {
+      this.props.dispatch(updateStudentAction(this.state.values));
+    } else {
+      this.props.dispatch(addStudentAction(this.state.values));
+    }
 
     this.setState(
       {
@@ -186,7 +193,8 @@ class Register extends Component {
             type="submit"
             className="btn btn-success text-white"
           >
-            Thêm sinh viên
+            {/* Thêm sinh viên */}
+            {this.props.buttonInnerHTML}
           </button>
         </form>
       </div>

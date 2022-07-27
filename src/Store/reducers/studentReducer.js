@@ -1,11 +1,19 @@
+import {
+  ADD_STUDENT,
+  DELETE_STUDENT,
+  EDIT_STUDENT,
+  UPDATE_STUDENT,
+} from "../type/student";
+
 const DEFAULT_STATE = {
+  buttonInnerHTML: "Thêm sinh viên",
   studentList: [],
   selectedStudent: null,
 };
 
 export const studentReducer = (state = DEFAULT_STATE, { type, payload }) => {
   switch (type) {
-    case "ADD_STUDENT": {
+    case ADD_STUDENT: {
       const data = [...state.studentList];
 
       data.push(payload);
@@ -14,7 +22,7 @@ export const studentReducer = (state = DEFAULT_STATE, { type, payload }) => {
 
       return { ...state };
     }
-    case "DELETE_STUDENT": {
+    case DELETE_STUDENT: {
       const data = [...state.studentList];
 
       const index = data.findIndex((ele) => ele.maSV === payload.maSV);
@@ -27,16 +35,17 @@ export const studentReducer = (state = DEFAULT_STATE, { type, payload }) => {
       return { ...state };
     }
 
-    case "EDIT_STUDENT": {
+    case EDIT_STUDENT: {
       state.selectedStudent = payload;
+
+      state.buttonInnerHTML = "Sửa";
       return { ...state };
     }
 
-    case "UPDATE_STUDENT": {
+    case UPDATE_STUDENT: {
       const data = [...state.studentList];
 
       const index = data.findIndex((ele) => ele.maSV === payload.maSV);
-      console.log(index);
 
       if (index !== -1) {
         data[index] = payload;
@@ -45,6 +54,7 @@ export const studentReducer = (state = DEFAULT_STATE, { type, payload }) => {
       state.studentList = data;
 
       state.selectedStudent = null;
+      state.buttonInnerHTML = "Thêm Sinh Viên";
 
       return { ...state };
     }
