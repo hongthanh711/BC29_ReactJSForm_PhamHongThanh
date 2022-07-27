@@ -11,7 +11,14 @@ class Student extends Component {
           <td>{ele.phone}</td>
           <td>{ele.email}</td>
           <td>
-            <button className="btn btn-primary">Sửa</button>
+            <button
+              onClick={() => {
+                this.props.dispatch({ type: "EDIT_STUDENT", payload: ele });
+              }}
+              className="btn btn-primary"
+            >
+              Sửa
+            </button>
             <button
               onClick={() =>
                 this.props.dispatch({

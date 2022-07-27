@@ -1,5 +1,6 @@
 const DEFAULT_STATE = {
   studentList: [],
+  selectedStudent: null,
 };
 
 export const studentReducer = (state = DEFAULT_STATE, { type, payload }) => {
@@ -22,6 +23,28 @@ export const studentReducer = (state = DEFAULT_STATE, { type, payload }) => {
       }
 
       state.studentList = data;
+
+      return { ...state };
+    }
+
+    case "EDIT_STUDENT": {
+      state.selectedStudent = payload;
+      return { ...state };
+    }
+
+    case "UPDATE_STUDENT": {
+      const data = [...state.studentList];
+
+      const index = data.findIndex((ele) => ele.maSV === payload.maSV);
+      console.log(index);
+
+      if (index !== -1) {
+        data[index] = payload;
+      }
+
+      state.studentList = data;
+
+      state.selectedStudent = null;
 
       return { ...state };
     }
