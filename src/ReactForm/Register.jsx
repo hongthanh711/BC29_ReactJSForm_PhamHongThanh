@@ -83,11 +83,6 @@ class Register extends Component {
       return;
     }
 
-    // this.props.dispatch({
-    //   type: this.props.selectedStudent ? "UPDATE_STUDENT" : "ADD_STUDENT",
-    //   payload: this.state.values,
-    // });
-
     if (this.props.selectedStudent) {
       this.props.dispatch(updateStudentAction(this.state.values));
     } else {
