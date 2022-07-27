@@ -2,8 +2,25 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 class Student extends Component {
+  state = {
+    keyword: "",
+  };
+
+  handleChange = (event) => {
+    this.setState({ keyword: event.target.value });
+  };
+
   renderStudent = () => {
-    return this.props.studentList.map((ele) => {
+    const data = this.props.studentList.filter((student) => {
+      return (
+        student.fullname
+          .toLowerCase()
+          .trim()
+          .indexOf(this.state.keyword.toLowerCase().trim()) !== -1
+      );
+    });
+
+    return data.map((ele) => {
       return (
         <tr key={ele.maSV}>
           <th>{ele.maSV}</th>
@@ -38,21 +55,30 @@ class Student extends Component {
 
   render() {
     return (
-      <div>
-        <div className="py-5">
-          <table className="table">
-            <thead className="thead-dark">
-              <tr>
-                <th>Mã SV</th>
-                <th>Họ tên</th>
-                <th>Số điện thoại</th>
-                <th>Email</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>{this.renderStudent()}</tbody>
-          </table>
+      <div className="py-5">
+        <div className="input-group w-25 pb-3">
+          <input
+            onChange={this.handleChange}
+            type="search"
+            className="form-control rounded"
+            placeholder="Họ tên"
+            aria-label="Search"
+            aria-describedby="search-addon"
+          />
         </div>
+
+        <table className="table">
+          <thead className="thead-dark">
+            <tr>
+              <th>Mã SV</th>
+              <th>Họ tên</th>
+              <th>Số điện thoại</th>
+              <th>Email</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>{this.renderStudent()}</tbody>
+        </table>
       </div>
     );
   }
