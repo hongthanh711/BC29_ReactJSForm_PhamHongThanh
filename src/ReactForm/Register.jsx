@@ -70,15 +70,6 @@ class Register extends Component {
       message = `Vui lòng nhập ${title} đúng định dạng`;
     }
 
-    // const index = this.props.studentList.findIndex(
-    //   (ele) => ele.maSV === this.state.value.maSV
-    // );
-    // if (index !== -1) {
-    //   customError = true;
-    // }
-    // console.log(event);
-    // console.log(index);
-
     this.setState({
       errors: { ...this.state.errors, [name]: message },
     });
