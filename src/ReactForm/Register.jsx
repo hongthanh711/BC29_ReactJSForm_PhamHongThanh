@@ -83,6 +83,18 @@ class Register extends Component {
       return;
     }
 
+    if (
+      this.props.studentList.find((ele) => ele.maSV === this.state.values.maSV)
+    ) {
+      this.setState({
+        errors: {
+          ...this.state.errors,
+          maSV: "Mã SV đã tồn tại",
+        },
+      });
+      return;
+    }
+
     if (this.props.selectedStudent) {
       this.props.dispatch(updateStudentAction(this.state.values));
     } else {
